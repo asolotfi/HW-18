@@ -11,9 +11,9 @@ namespace HW_18.Domain.Contract.Service
             _authentication = authentication;
         }
 
-        public bool Login(string cardNumber, string password)
+        public bool Login(string userName, string password)
         {
-            var result = _authentication.Login(cardNumber, password);
+            var result = _authentication.Login(userName, password);
             return result;
         }
     }

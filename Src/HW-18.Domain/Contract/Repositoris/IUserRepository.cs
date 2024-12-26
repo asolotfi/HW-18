@@ -4,7 +4,12 @@ namespace HW_18.Domain.Contract.Repositoris
 {
     public interface IUserRepository
     {
-        User GetUser(string userName);
+        User GetUser(User user);
+        bool Add(User user);
+        bool Delete(User user);
+        bool Edit(User user);
+        bool Get(User user);
+        bool GetAll();
     }
 }
 

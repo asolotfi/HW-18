@@ -1,6 +1,8 @@
-﻿namespace HW_18.Infrastructure.Service
+﻿using HW_18.Domain.Contract.Authentication;
+
+namespace HW_18.Infrastructure.Service
 {
-    public class UserService
+    public class UserService : IAuthentication
     {
         //    public class UserService : IUserService
         //    {
@@ -27,5 +29,9 @@
 
         //        //  }
         //    }
+        public bool Login(string userName, string password)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace HW_18.Infrastructure.DB
 {
     public class AppDbContext : DbContext
     {
-  
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(Configuration.Configuration.configurationstring);
@@ -17,13 +17,13 @@ namespace HW_18.Infrastructure.DB
             modelBuilder.ApplyConfiguration(new CategoryConfig());
             modelBuilder.ApplyConfiguration(new ProductConfig());
             modelBuilder.ApplyConfiguration(new UserConfig());
-            
+
 
             base.OnModelCreating(modelBuilder);
         }
 
-       
-        public DbSet<Category> categories { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<User> users { get; set; }
 

@@ -6,6 +6,7 @@ namespace HW_18.Models
     {
         [Required]
         [StringLength(100)]
-        public string Name { get; set; }    
+        public string Name { get; set; }   
+        
     }
 }

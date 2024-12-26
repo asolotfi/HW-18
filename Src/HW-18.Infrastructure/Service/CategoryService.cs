@@ -17,5 +17,35 @@ namespace HW_18.Infrastructure.Service
         {
             _categoryRepository.AddCategory(category);
         }
+
+        public bool DeleteCategory(Category category)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool EditCategory(Category category)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Get(Category category)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool GetAllCategory()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool GetCategory(Category category)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool ICategoryService.AddCategory(Category category)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

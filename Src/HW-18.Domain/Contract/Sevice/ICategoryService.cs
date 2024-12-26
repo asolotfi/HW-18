@@ -9,7 +9,11 @@ namespace HW_18.Domain.Contract.Sevice
 {
     public interface ICategoryService
     {
-        void AddCategory(Category category);
-        // سایر متدها
+        bool AddCategory(Category category);
+        bool DeleteCategory(Category category);
+        bool EditCategory(Category category);
+        bool GetCategory(Category category);
+        bool GetAllCategory();
+        bool Get(Category category);
     }
 }

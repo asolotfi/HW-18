@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HW_18.Infrastructure.DB;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HW_18.Controllers
 {
@@ -6,9 +8,11 @@ namespace HW_18.Controllers
     {
         private readonly IProductService _productService;
 
-        public productController(IProductService productService)
+        private readonly AppDbContext _context;
+
+        public productController(AppDbContext context)
         {
-            _productService = productService;
+            _context = context;
         }
         //public ActionResult Index()
         //{
@@ -45,5 +49,95 @@ namespace HW_18.Controllers
         //    return RedirectToAction("Index");
 
         //}
+        public async Task<IActionResult> Index()
+        {
+            var products = await _context.Products.Include(p => p.Category).ToListAsync();
+            return View(products);
+        }
+
+        // Create: Display create form
+        public IActionResult Create()
+        {
+            ViewData["Categories"] = _context.Products.ToList();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(product);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["Categories"] = _context.Products.ToList();
+            return View(product);
+        }
+
+        // Update: Display update form
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["Categories"] = _context.Products.ToList();
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Product product)
+        {
+            //if (id != product.id)
+            //{
+            //    return NotFound();
+            //}
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewData["Categories"] = _context.Products.ToList();
+            return View(product);
+        }
+
+        // Delete: Display delete confirmation
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
