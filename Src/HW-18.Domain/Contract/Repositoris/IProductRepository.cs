@@ -4,11 +4,10 @@ namespace HW_18.Domain.Contract.Repositoris
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> GetAllProducts();
-        bool AddProduct(Product product);
-        bool DeleteProduct(Product product);
-        bool EditProduct(Product product);
-        bool GetProduct(Product product);
-        bool GetAllProduct();
+        bool AddProduct(string name,int price, int categoryId);
+        bool DeleteProduct(int id);
+        bool EditProduct(string name, int price, int categoryId);
+        Product GetProduct(int id);
+        List<Product> GetAllProduct();
     }
 }

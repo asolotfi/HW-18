@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Src\HW-18.Domain\HW-18.Domain.csproj" />
     <ProjectReference Include="..\Src\HW-18.Infrastructure\HW-18.Infrastructure.csproj" />
   </ItemGroup>
 

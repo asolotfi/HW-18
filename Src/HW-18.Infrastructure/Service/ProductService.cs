@@ -1,6 +1,9 @@
 ﻿using HW_18.Controllers;
 using HW_18.Domain.Contract.Repositoris;
 using HW_18.Domain.Entites;
+using HW_18.Infrastructure.Repositoris;
+using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HW_18.Infrastructure.Service
 {
@@ -12,45 +15,28 @@ namespace HW_18.Infrastructure.Service
         {
             _ProductRepository = productRepository;
         }
-
-        public bool AddProduct(Product product)
+        public bool AddProduct(string name, int price, int categoryId)
         {
-            throw new NotImplementedException();
+            var result = _ProductRepository.AddProduct(name,  price,categoryId);
+            return result;
         }
-
-        public bool DeleteProduct(Product product)
+        public bool DeleteProduct(int id)
         {
-            throw new NotImplementedException();
+            var result = _ProductRepository.DeleteProduct(id);
+            return result;
         }
-
-        public bool EditProduct(Product product)
+        public bool EditProduct(string name, int price, int categoryId)
         {
-            throw new NotImplementedException();
+            var result = _ProductRepository.EditProduct(name,  price,categoryId);
+            return result;
         }
-
-        public IEnumerable<Product> GetAllProduct()
+        public List<Product>  GetAllProduct()
         {
-            return _ProductRepository.GetAllProducts();
+            return  _ProductRepository.GetAllProduct();
         }
-
-        public IEnumerable<Product> GetAllProducts()
+        public Product GetProduct(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool GetProduct(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Product GetProductById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool IProductService.GetAllProduct()
-        {
-            throw new NotImplementedException();
-        }
+            return _ProductRepository.GetProduct(id);
+        }    
     }
 }

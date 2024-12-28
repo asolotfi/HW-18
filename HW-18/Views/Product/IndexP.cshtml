@@ -1,0 +1,113 @@
+﻿@using HW_18.Domain.Entites
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>لیست محصولات</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: linear-gradient(to right, #b92b27, #1565c0);
+            color: white;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 2px;
+        }
+
+        .btn-update {
+            background-color: #f0ad4e;
+        }
+
+        .btn-delete {
+            background-color: #d9534f;
+        }
+
+        .btn-details {
+            background-color: #5bc0de;
+        }
+
+        .btn-update:hover {
+            background-color: #ec971f;
+        }
+
+        .btn-delete:hover {
+            background-color: #c9302c;
+        }
+
+        .btn-details:hover {
+            background-color: #31b0d5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>لیست محصولات</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>نام محصول</th>
+                    <th>قیمت</th>
+                    <th>دسته‌بندی</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @model List<Product>
+
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.Id</td>
+                            <td>@product.Name</td>
+                            <td>@product.Price</td>
+                            <td>@product.Category</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">هیچ محصولی جهت نمایش وجود ندارد.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+
+

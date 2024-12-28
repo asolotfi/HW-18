@@ -13,39 +13,28 @@ namespace HW_18.Infrastructure.Service
             _categoryRepository = categoryRepository;
         }
 
-        public void AddCategory(Category category)
+        public bool AddCategory(string name)
         {
-            _categoryRepository.AddCategory(category);
+            return _categoryRepository.AddCategory(name);
         }
 
-        public bool DeleteCategory(Category category)
+        public bool DeleteCategory(int id)
         {
-            throw new NotImplementedException();
+            var result = _categoryRepository.DeleteCategory(id);
+            return result;
         }
-
-        public bool EditCategory(Category category)
+        public bool EditCategory(string name)
         {
-            throw new NotImplementedException();
+            var result = _categoryRepository.EditCategory(name);
+            return result;
         }
-
-        public bool Get(Category category)
+        public Category GetCategory(int id)
         {
-            throw new NotImplementedException();
+            return _categoryRepository.GetCategory(id);
         }
-
-        public bool GetAllCategory()
+        public List<Category> GetAllCategory()
         {
-            throw new NotImplementedException();
-        }
-
-        public bool GetCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool ICategoryService.AddCategory(Category category)
-        {
-            throw new NotImplementedException();
+            return _categoryRepository.GetAllCategory();
         }
     }
 }

@@ -22,6 +22,14 @@ namespace HW_18.Infrastructure.DB
             base.OnModelCreating(modelBuilder);
         }
 
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+       : base(options)
+        {
+        }
+
+        public AppDbContext()
+        {
+        }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }

@@ -1,49 +1,96 @@
 ﻿using HW_18.Domain.Contract.Repositoris;
 using HW_18.Domain.Entites;
+using HW_18.Infrastructure.DB;
+using HW_18.Infrastructure.Service;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace HW_18.Infrastructure.Repositoris
 {
     public class ProductRepository : IProductRepository
     {
-        public bool AddProduct(Product product)
+        private readonly AppDbContext _appDbContext;
+        private readonly AuthenticationService _AuthenticationService;
+        public bool AddProduct(string name, int price, int categoryId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (name == null || price <= 0 || categoryId==null)
+                {
+                    return false;
+                }
+                var productNew = new Product
+                {
+                    Name = name,
+                    Price = price,
+                    CategoryId = categoryId,
+                };
+                _appDbContext.Products.Add(productNew); 
+                _appDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new ApplicationException("خطا در زمان ثبت کالا", ex);
+            }
         }
 
-        public bool DeleteProduct(Product product)
+        public bool DeleteProduct(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = _appDbContext.Products.Any(x => x.Id == id);
+                if (result)
+                {
+                    _appDbContext.Remove(id);
+                    _appDbContext.SaveChanges();
+                    return true;
+                }
+                 return false;
+             
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new ApplicationException("خطا در زمان حذف کالا", ex);
+            }
+        }
+        public bool EditProduct(string name, int price, int categoryId)
+        {
+            //در صورتی که خالی بود قبلی بخونه
+            try
+            {
+                var result = _appDbContext.Products.Any(x => x.Name == name);
+                if (result)
+                {
+                 
+                    var product = new Product
+                    {
+                        Name = name,
+                        Price = price,
+                        CategoryId = categoryId,
+                    };
+                    _appDbContext.SaveChanges();
+                    return true;
+                }
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new ApplicationException("خطا در زمان ویرایش کالا", ex);
+            }
         }
 
-        public bool EditProduct(Product product)
+        public List<Product> GetAllProduct()
         {
-            throw new NotImplementedException();
+            return _appDbContext.Products.ToList();
         }
-
-        public bool GetAllProduct()
+        public Product GetProduct(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        //private readonly AppContext _appContext;
-
-        //public ProductRepository(AppContext appContext)
-        //{
-        //    _appContext = appContext;
-        //}
-
-        //public IEnumerable<Product> GetAllProducts()
-        //{
-        //    return _appContext.Products.ToList();
-        //}
-        public IEnumerable<Product> GetAllProducts()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool GetProduct(Product product)
-        {
-            throw new NotImplementedException();
+            return _appDbContext.Products.FirstOrDefault(x => x.Id == id);
         }
     }
 }
