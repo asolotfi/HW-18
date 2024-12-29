@@ -92,17 +92,5 @@
         </div>
     </div>
 
-    <script>
-        function decodeHTMLEntities(text) {
-            let txt = document.createElement('textarea');
-            txt.innerHTML = text;
-            return txt.value;
-        }
-
-        let errorMessage = decodeHTMLEntities('@TempData["ErrorMessage"]');
-        if (errorMessage) {
-            alert(errorMessage);
-        }
-    </script>
 </body>
 </html>
