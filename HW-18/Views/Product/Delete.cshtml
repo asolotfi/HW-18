@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>حذف محصول</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: linear-gradient(to right, #b92b27, #1565c0);
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: #191919;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            transition: 0.3s;
+        }
+
+            .card h1 {
+                color: white;
+                margin-bottom: 20px;
+            }
+
+            .card .text-muted {
+                color: #c1c1c1;
+                margin-bottom: 20px;
+            }
+
+            .card input[type="submit"] {
+                border: 0;
+                background: #e74c3c;
+                display: block;
+                margin: 20px auto;
+                padding: 10px 20px;
+                width: 50%;
+                color: white;
+                border-radius: 24px;
+                transition: 0.25s;
+                cursor: pointer;
+            }
+
+                .card input[type="submit"]:hover {
+                    background-color: #c0392b;
+                }
+
+        .cancel-button {
+            border: 0;
+            background: #7f8c8d;
+            display: inline-block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 24px;
+            text-decoration: none;
+            transition: 0.25s;
+            cursor: pointer;
+        }
+
+            .cancel-button:hover {
+                background-color: #95a5a6;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>حذف محصول</h1>
+            <p class="text-muted">آیا مطمئن هستید که می‌خواهید این محصول را حذف کنید؟</p>
+            <p>نام محصول: @Model.Name</p>
+            <p>قیمت: @Model.Price</p>
+            <p>شناسه دسته‌بندی: @Model.CategoryId</p>
+
+            <form id="Form" asp-controller="Product" asp-action="DeleteProduct" method="post">
+                <input type="hidden" name="id" value="@Model.Id">
+                <input type="submit" value="حذف">
+            </form>
+            <a href="@Url.Action("Index", "Product")" class="cancel-button">لغو</a>
+        </div>
+    </div>
+</body>
+</html>
+

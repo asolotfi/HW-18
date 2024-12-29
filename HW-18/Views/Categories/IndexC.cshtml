@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
@@ -81,7 +82,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- فرض بر اینکه Model شامل لیست دسته‌بندی‌ها است -->
                 @if (Model != null && Model.Any())
                 {
                     @foreach (var category in Model)
@@ -91,9 +91,8 @@
                             <td>@category.Name</td>
                             <td>@category.Description</td>
                             <td>
-                                <a href="@Url.Action("Edit", "Categories", new { id = category.Id })" class="btn btn-update">بروزرسانی</a>
-                                <a href="@Url.Action("Delete", "Categories", new { id = category.Id })" class="btn btn-delete">حذف</a>
-                                <a href="@Url.Action("Details", "Categories", new { id = category.Id })" class="btn btn-details">مشاهده جزئیات</a>
+                                <a href="@Url.Action("createProduct", "Categories", new { id = category.Id })" class="btn btn-create">اضاقه کردن </a>
+                              
                             </td>
                         </tr>
                     }

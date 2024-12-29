@@ -14,7 +14,7 @@ namespace HW_18.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> IndexC()
         {
             var categories = await _context.Categories.ToListAsync();
             return View(categories);
@@ -71,7 +71,7 @@ namespace HW_18.Controllers
         [HttpGet]
         public List<Category> GetAllCategory()
         {
-            return _categoryService.GetAllCategory() ;
+            return _categoryService.GetAllCategory();
         }
 
     }

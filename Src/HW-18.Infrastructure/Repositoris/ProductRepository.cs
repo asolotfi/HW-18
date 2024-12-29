@@ -3,19 +3,18 @@ using HW_18.Domain.Entites;
 using HW_18.Infrastructure.DB;
 using HW_18.Infrastructure.Service;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace HW_18.Infrastructure.Repositoris
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly AppDbContext _appDbContext = new AppDbContext();
         private readonly AuthenticationService _AuthenticationService;
         public bool AddProduct(string name, int price, int categoryId)
         {
             try
             {
-                if (name == null || price <= 0 || categoryId==null)
+                if (name == null || price <= 0 || categoryId == null)
                 {
                     return false;
                 }
@@ -25,7 +24,7 @@ namespace HW_18.Infrastructure.Repositoris
                     Price = price,
                     CategoryId = categoryId,
                 };
-                _appDbContext.Products.Add(productNew); 
+                _appDbContext.Products.Add(productNew);
                 _appDbContext.SaveChanges();
                 return true;
             }
@@ -47,8 +46,8 @@ namespace HW_18.Infrastructure.Repositoris
                     _appDbContext.SaveChanges();
                     return true;
                 }
-                 return false;
-             
+                return false;
+
             }
             catch (Exception ex)
             {
@@ -64,7 +63,7 @@ namespace HW_18.Infrastructure.Repositoris
                 var result = _appDbContext.Products.Any(x => x.Name == name);
                 if (result)
                 {
-                 
+
                     var product = new Product
                     {
                         Name = name,
@@ -86,7 +85,7 @@ namespace HW_18.Infrastructure.Repositoris
 
         public List<Product> GetAllProduct()
         {
-            return _appDbContext.Products.ToList();
+            return _appDbContext.Products.Include(p => p.Category).ToList();
         }
         public Product GetProduct(int id)
         {

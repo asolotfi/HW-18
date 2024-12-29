@@ -1,4 +1,5 @@
-﻿@using HW_18.Domain.Entites
+﻿
+@using HW_18.Domain.Entites
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -55,6 +56,10 @@
             background-color: #5bc0de;
         }
 
+        .btn-create {
+            background-color: #d9534f;
+        }
+
         .btn-update:hover {
             background-color: #ec971f;
         }
@@ -64,6 +69,10 @@
         }
 
         .btn-details:hover {
+            background-color: #31b0d5;
+        }
+
+        .btn-create:hover {
             background-color: #31b0d5;
         }
     </style>
@@ -93,7 +102,13 @@
                             <td>@product.Id</td>
                             <td>@product.Name</td>
                             <td>@product.Price</td>
-                            <td>@product.Category</td>
+                            <td>@product.Category?.Name</td>
+                            <td>
+                                <a href="@Url.Action("createProduct", "product", new { id = product.Id })" class="btn btn-create">اضاقه کردن محصول جدید</a>
+                                <a href="@Url.Action("Edit", "product", new { id = product.Id })" class="btn btn-update">بروزرسانی</a>
+                                <a href="@Url.Action("Delete", "product", new { id = product.Id })" class="btn btn-delete">حذف</a>
+                                <a href="@Url.Action("Details", "product", new { id = product.Id })" class="btn btn-details">مشاهده جزئیات</a>
+                            </td>
                         </tr>
                     }
                 }
