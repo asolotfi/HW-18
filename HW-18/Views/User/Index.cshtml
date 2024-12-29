@@ -159,17 +159,18 @@
 </div>
 
 <script>
-     function decodeHTMLEntities(text) {
+    function decodeHTMLEntities(text) {
         let txt = document.createElement("textarea");
         txt.innerHTML = text;
         return txt.value;
     }
 
     let errorMessage = decodeHTMLEntities('@TempData["ErrorMessage"]');
-    alert(errorMessage);
-    
-
+    if (errorMessage && errorMessage !== 'null' && errorMessage.trim() !== '') {
+        alert(errorMessage);
+    }
 </script>
+
 
 
 
