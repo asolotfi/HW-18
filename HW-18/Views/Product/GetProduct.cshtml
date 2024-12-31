@@ -1,8 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using HW_18.Domain.Entites
+@model Product
+<!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
-    <title>بروزرسانی محصول</title>
+    <title>[کد محصول وارد کنید]</title>
     <style>
         body {
             margin: 0;
@@ -79,31 +81,18 @@
     </style>
 </head>
 <body>
+
     <div class="container">
-        <div class="card">
-            <form id="Form" asp-controller="Product" asp-action="EditProduct" method="post" class="box">
-                <h1>بروزرسانی محصول</h1>
-                <p class="text-muted">اطلاعات محصول خود را بروزرسانی کنید!</p>
-                <input type="hidden" name="id" value="@Model.Id">
-                <input type="text" name="name" placeholder="نام محصول" value="@Model.Name" required>
-                <input type="text" name="price" placeholder="قیمت" value="@Model.Price" required>
-                <input type="password" name="categoryId" placeholder="شناسه دسته‌بندی" value="@Model.CategoryId" required>
-                <input type="submit" value="بروزرسانی">
-            </form>
+        <div class="card">               
+                <h1>جستجو محصول</h1>
+                <p class="text-muted">لطفاً Id محصول خود را وارد کنید!</p>
+                <input type="number" id="id" name="id" placeholder="id محصول" required>
+                <td>
+                <a class="btn btn-success" asp-controller="Product" asp-action="Edit" media="get" asp-route-id="@Model.Id">جستجو</a>
+                </td>
+           
         </div>
     </div>
 
-    <script>
-        function decodeHTMLEntities(text) {
-            let txt = document.createElement('textarea');
-            txt.innerHTML = text;
-            return txt.value;
-        }
-
-        let errorMessage = decodeHTMLEntities('@TempData["ErrorMessage"]');
-        if (errorMessage) {
-            alert(errorMessage);
-        }
-    </script>
 </body>
 </html>

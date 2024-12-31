@@ -39,10 +39,10 @@ namespace HW_18.Infrastructure.Repositoris
         {
             try
             {
-                var result = _appDbContext.Products.Any(x => x.Id == id);
-                if (result)
+                var result = _appDbContext.Products.FirstOrDefault(x => x.Id == id);
+                if (result!=null)
                 {
-                    _appDbContext.Remove(id);
+                    _appDbContext.Remove(result);
                     _appDbContext.SaveChanges();
                     return true;
                 }
@@ -55,21 +55,17 @@ namespace HW_18.Infrastructure.Repositoris
                 throw new ApplicationException("خطا در زمان حذف کالا", ex);
             }
         }
-        public bool EditProduct(string name, int price, int categoryId)
+        public bool EditProduct(int id,string name, int price, int categoryId)
         {
             //در صورتی که خالی بود قبلی بخونه
             try
             {
-                var result = _appDbContext.Products.Any(x => x.Name == name);
-                if (result)
+                var result = _appDbContext.Products.FirstOrDefault(x => x.Id == id);
+                if (result != null)
                 {
-
-                    var product = new Product
-                    {
-                        Name = name,
-                        Price = price,
-                        CategoryId = categoryId,
-                    };
+                    result.Name = name;
+                    result.Price = price;
+                    result.CategoryId = categoryId;
                     _appDbContext.SaveChanges();
                     return true;
                 }

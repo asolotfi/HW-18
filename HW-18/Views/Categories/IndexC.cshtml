@@ -1,4 +1,4 @@
-﻿
+﻿@using HW_18.Domain.Entites
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -77,32 +77,31 @@
                 <tr>
                     <th>شناسه</th>
                     <th>نام دسته‌بندی</th>
-                    <th>توضیحات</th>
-                    <th>عملیات</th>
                 </tr>
             </thead>
             <tbody>
+                
+                @model List<Category>
                 @if (Model != null && Model.Any())
                 {
                     @foreach (var category in Model)
                     {
+                 
                         <tr>
                             <td>@category.Id</td>
                             <td>@category.Name</td>
-                            <td>@category.Description</td>
-                            <td>
-                                <a href="@Url.Action("createProduct", "Categories", new { id = category.Id })" class="btn btn-create">اضاقه کردن </a>
-                              
-                            </td>
                         </tr>
                     }
                 }
                 else
                 {
                     <tr>
-                        <td colspan="4">هیچ دسته‌بندی جهت نمایش موجود نیست.</td>
+                        <td colspan="3">هیچ دسته‌بندی جهت نمایش موجود نیست.</td>
                     </tr>
                 }
+                <td>
+                <a class="btn btn-update" asp-controller="Categories" asp-action="CreateCategories">ایجاد دسته‌بندی جدید</a>
+                </td>
             </tbody>
         </table>
     </div>

@@ -104,10 +104,8 @@
                             <td>@product.Price</td>
                             <td>@product.Category?.Name</td>
                             <td>
-                                <a href="@Url.Action("createProduct", "product", new { id = product.Id })" class="btn btn-create">اضاقه کردن محصول جدید</a>
-                                <a href="@Url.Action("Edit", "product", new { id = product.Id })" class="btn btn-update">بروزرسانی</a>
-                                <a href="@Url.Action("Delete", "product", new { id = product.Id })" class="btn btn-delete">حذف</a>
-                                <a href="@Url.Action("Details", "product", new { id = product.Id })" class="btn btn-details">مشاهده جزئیات</a>
+                                <a class="btn btn-update" asp-controller="product" asp-action="Edit" asp-route-id="@product.Id">بروزرسانی</a>
+                                <a class="btn btn-delete" asp-controller="product" asp-action="Delete" asp-route-id="@product.Id">حذف</a>
                             </td>
                         </tr>
                     }
@@ -118,6 +116,9 @@
                         <td colspan="5">هیچ محصولی جهت نمایش وجود ندارد.</td>
                     </tr>
                 }
+                <td>
+                <a class="btn btn-create" asp-controller="product" asp-action="createProduct" >اضاقه کردن محصول جدید</a>
+            </td>
             </tbody>
         </table>
     </div>

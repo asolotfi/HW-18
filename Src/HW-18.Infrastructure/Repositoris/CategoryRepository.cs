@@ -1,7 +1,6 @@
 ﻿using HW_18.Domain.Contract.Repositoris;
 using HW_18.Domain.Entites;
 using HW_18.Infrastructure.DB;
-using System.Diagnostics;
 
 namespace HW_18.Infrastructure.Repositoris
 {
@@ -34,7 +33,7 @@ namespace HW_18.Infrastructure.Repositoris
             {
                 Console.WriteLine(ex.Message);
                 throw new ApplicationException("خطا در زمان ثبت ", ex);
-            }         
+            }
         }
         public bool DeleteCategory(int id)
         {
@@ -59,7 +58,6 @@ namespace HW_18.Infrastructure.Repositoris
 
         public bool EditCategory(string name)
         {
-            //در صورتی که خالی بود قبلی بخونه
             try
             {
                 var result = _context.Categories.Any(x => x.Name == name);
@@ -82,7 +80,7 @@ namespace HW_18.Infrastructure.Repositoris
             }
         }
 
-        public List< Category> GetAllCategory()
+        public List<Category> GetAllCategory()
         {
             return _context.Categories.ToList();
         }

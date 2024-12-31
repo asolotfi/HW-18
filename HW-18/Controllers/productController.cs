@@ -7,15 +7,14 @@ using Microsoft.EntityFrameworkCore;
 namespace HW_18.Controllers
 {
     public class productController : Controller
-    {
-  
+    {  
         private readonly IProductService _productService;
         private readonly AppDbContext _context;
 
         public productController(AppDbContext context , IProductService productService)
         {
             _context = context;
-            _productService = productService; // اطمینان از این مقداردهی
+            _productService = productService; 
         }
         [HttpGet]
         public IActionResult IndexP()
@@ -23,60 +22,11 @@ namespace HW_18.Controllers
             var products =  _context.Products.Include(p => p.Category).ToList();
             return View(products);
         }
-        public IActionResult AddProduct()
-        {
-            return View();
-        }
+        [HttpGet]
         public IActionResult createProduct(string name, int price, int categoryId)
         {
-            var result = _productService.AddProduct(name, price, categoryId);
-            if (result)
-            {
-                return RedirectToAction("createProduct", "Product");
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "ثبت ناموفق بود.";
-                return View("createProduct");
-            }
-        }
-        public IActionResult EditProduct()
-        {
             return View();
         }
-          
-        [HttpPost]
-        public IActionResult Edit(string name, int price, int categoryId)
-        {
-            var result = _productService.EditProduct(name, price, categoryId);
-            if (result)
-            {
-                TempData["ErrorMessage"] = " موفق بود.";
-                return RedirectToAction("EditProduct", "Product");
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "ویرایش ناموفق بود.";
-                return View("EditProduct");
-            }
-        }
-        public IActionResult DeleteProduct()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Delete(int id)
-        {
-            var result = _productService.DeleteProduct(id);
-            if (result == null)
-            {
-                return RedirectToAction("DeleteProduct", "Product");
-            }
-            TempData["ErrorMessage"] = "حذف ناموفق بود.";
-            return View("DeleteProduct");
-        }
-
-
         [HttpPost]
         public IActionResult AddProduct(string name, int price, int categoryId)
         {
@@ -85,7 +35,6 @@ namespace HW_18.Controllers
             {
                 TempData["ErrorMessage"] = "ثبت موفق بود.";
                 return RedirectToAction("IndexP", "Product");
-                
             }
             else
             {
@@ -93,11 +42,26 @@ namespace HW_18.Controllers
                 return View("IndexP");
             }
         }
-        [HttpPost]
-        public IActionResult EditProduct(string name, int price, int categoryId)
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            var result = _productService.EditProduct( name,price,categoryId);
-            if (result)
+            var result = _productService.GetProduct(id);
+            if (result!=null)
+            {
+                return View("EditProduct","Product");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "جستجو ناموفق بود.";
+                return View("IndexP","Product");
+            }
+        }
+        [HttpPost]
+        public IActionResult EditProduct(int id,string name, int price, int categoryId)
+        {
+            var resultG = _productService.GetProduct(id);
+            var result = _productService.EditProduct(id,name, price, categoryId);
+            if (result && resultG!=null)
             {
                 TempData["ErrorMessage"] = " موفق بود.";
                 return RedirectToAction("IndexP", "Product");
@@ -105,22 +69,22 @@ namespace HW_18.Controllers
             else
             {
                 TempData["ErrorMessage"] = "ویرایش ناموفق بود.";
-                return View("IndexP");
+                return View("IndexP", "Product");
             }
         }
-
-        [HttpPost]
-        public IActionResult DeleteProduct(int id)
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
             var result = _productService.DeleteProduct(id);
             if (result)
             {
+                TempData["ErrorMessage"] = " حذف موفق بود.";
                 return RedirectToAction("IndexP", "Product");
             }
             else
             {
                 TempData["ErrorMessage"] = "حذف ناموفق بود.";
-                return View("IndexP");
+                return View("IndexP", "Product");
             }
         }
         [HttpGet]
